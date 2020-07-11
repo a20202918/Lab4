@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         providers= Arrays.asList(
-                new AuthUI.IdpConfig.FacebookBuilder().build(),
-                new AuthUI.IdpConfig.GitHubBuilder().build()
+                new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
         iniciarSesion();
