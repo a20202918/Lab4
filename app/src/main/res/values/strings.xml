@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lab4</string>
+    <string name="facebook_application_id" translatable="false">284403862796278</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb284403862796278</string>
 </resources>

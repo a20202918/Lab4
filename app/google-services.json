@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "280484063836",
+    "firebase_url": "https://lab4-dappsm.firebaseio.com",
+    "project_id": "lab4-dappsm",
+    "storage_bucket": "lab4-dappsm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280484063836:android:3afbb0d48c1f97dd76d499",
+        "android_client_info": {
+          "package_name": "com.example.lab4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280484063836-b5q910kr26jmbkk3gqmvdcbmm9568v5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUl56djEHA6yoGxwTBRW5f0PJtra-Z0DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280484063836-b5q910kr26jmbkk3gqmvdcbmm9568v5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
