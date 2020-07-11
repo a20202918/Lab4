@@ -84,4 +84,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void btnVerMas(View view){
+        Intent intent = new Intent(this, VerMasActivity.class);
+        int requestCode = 1;
+        startActivityForResult(intent, requestCode);
+    }
+
+
 }
