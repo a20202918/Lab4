@@ -48,7 +48,9 @@ public class AgregarComentarioActivity extends AppCompatActivity {
         comentario.setFecha(date);
         comentario.setNombre(user.getDisplayName());
 
-        databaseReference.setValue(comentario).addOnSuccessListener(new OnSuccessListener<Void>() {
+        String idfoto = "1";
+
+        databaseReference.child(idfoto).push().setValue(comentario).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"Comentario guardado con éxito", Toast.LENGTH_SHORT).show();

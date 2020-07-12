@@ -1,6 +1,7 @@
 package com.example.lab4;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.lab4.entidades.AdapterDatos;
 import com.example.lab4.entidades.ComentariosDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +48,8 @@ public class VerMasActivity extends AppCompatActivity {
         //userName.setText(username_toolbar);
         //setSupportActionBar(toolbar);
 
+
+
         databaseReference =FirebaseDatabase.getInstance().getReference();
 
         listComentarios = new ArrayList<>();
@@ -53,10 +57,11 @@ public class VerMasActivity extends AppCompatActivity {
         recyclerViewComentarios = findViewById(R.id.recyclerView);
         recyclerViewComentarios.setLayoutManager(new LinearLayoutManager(this));
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        String idfoto = "1";
 
+        databaseReference.child(idfoto).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.getValue() != null){
 
                     ComentariosDTO comentario = dataSnapshot.getValue(ComentariosDTO.class);
@@ -67,6 +72,20 @@ public class VerMasActivity extends AppCompatActivity {
                     AdapterDatos adapter = new AdapterDatos(listComentarios);
                     recyclerViewComentarios.setAdapter(adapter);
                 }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
 
