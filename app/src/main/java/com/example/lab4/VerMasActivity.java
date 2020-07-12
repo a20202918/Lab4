@@ -48,20 +48,29 @@ public class VerMasActivity extends AppCompatActivity {
         //userName.setText(username_toolbar);
         //setSupportActionBar(toolbar);
 
-
-
         databaseReference =FirebaseDatabase.getInstance().getReference();
 
         listComentarios = new ArrayList<>();
 
         recyclerViewComentarios = findViewById(R.id.recyclerView);
-        recyclerViewComentarios.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+
+        recyclerViewComentarios.setLayoutManager(layoutManager);
+
 
         String idfoto = "1";
 
-        databaseReference.child(idfoto).addChildEventListener(new ChildEventListener() {
+        databaseReference.child(idfoto).orderByChild("fecha").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                long numComentarios = dataSnapshot.getChildrenCount();
+                TextView textViewNumComentarios = findViewById(R.id.textViewNumComentarios);
+                String numComentariosStr = String.valueOf(numComentarios)+" comentarios";
+                textViewNumComentarios.setText(numComentariosStr);
+
                 if(dataSnapshot.getValue() != null){
 
                     ComentariosDTO comentario = dataSnapshot.getValue(ComentariosDTO.class);
@@ -77,6 +86,21 @@ public class VerMasActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                long numComentarios = dataSnapshot.getChildrenCount();
+                TextView textViewNumComentarios = findViewById(R.id.textViewNumComentarios);
+                String numComentariosStr = String.valueOf(numComentarios)+" comentarios";
+                textViewNumComentarios.setText(numComentariosStr);
+
+                if(dataSnapshot.getValue() != null){
+
+                    ComentariosDTO comentario = dataSnapshot.getValue(ComentariosDTO.class);
+                    Log.d("infoApp", comentario.getContenido());
+
+                    listComentarios.add(new ComentariosDTO(comentario.getContenido(),comentario.getFecha(),comentario.getNombre()));
+
+                    AdapterDatos adapter = new AdapterDatos(listComentarios);
+                    recyclerViewComentarios.setAdapter(adapter);
+                }
             }
 
             @Override
