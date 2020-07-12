@@ -6,10 +6,14 @@ public class ComentariosDTO {
     private String fecha;
     private String nombre;
 
-    public ComentariosDTO() {
+    public ComentariosDTO(String contenido, String fecha, String nombre) {
         this.contenido = contenido;
         this.fecha = fecha;
         this.nombre = nombre;
+    }
+
+    public ComentariosDTO() {
+
     }
 
     public String getContenido() {
