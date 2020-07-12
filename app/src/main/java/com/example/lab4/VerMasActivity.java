@@ -3,6 +3,7 @@ package com.example.lab4;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,17 @@ public class VerMasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_mas);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String username = user.getDisplayName();
+        Log.e("username", ""+user.getDisplayName() );
+
+
+        Toolbar toolbar = findViewById(R.id.username_toolbar);
+        TextView userName = findViewById(R.id.userName);
+
+        userName.setText(username);
+        setSupportActionBar(toolbar);
 
         listComentarios = new ArrayList<ComentariosDTO>();
 
