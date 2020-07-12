@@ -61,6 +61,8 @@ public class AgregarComentarioActivity extends AppCompatActivity {
             }
         });
 
+        finish();
+
     }
 
 }

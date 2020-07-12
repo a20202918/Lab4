@@ -1,4 +1,4 @@
-package com.example.lab4;
+package com.example.lab4.entidades;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lab4.R;
 import com.example.lab4.entidades.ComentariosDTO;
 
 import java.util.ArrayList;
@@ -53,3 +54,4 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         }
     }
 }
+

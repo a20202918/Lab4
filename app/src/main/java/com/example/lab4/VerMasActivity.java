@@ -1,30 +1,27 @@
 package com.example.lab4;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import com.example.lab4.entidades.AdapterDatos;
 import com.example.lab4.entidades.ComentariosDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -41,42 +38,35 @@ public class VerMasActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String username = user.getDisplayName();
-        Log.e("username", ""+user.getDisplayName() );
-
+        Log.d("username", ""+user.getDisplayName() );
 
         Toolbar toolbar = findViewById(R.id.username_toolbar);
         TextView userName = findViewById(R.id.userName);
 
-        userName.setText(username);
-        setSupportActionBar(toolbar);
+        //userName.setText(username_toolbar);
+        //setSupportActionBar(toolbar);
 
-        listComentarios = new ArrayList<ComentariosDTO>();
+        databaseReference =FirebaseDatabase.getInstance().getReference();
+
+        listComentarios = new ArrayList<>();
 
         recyclerViewComentarios = findViewById(R.id.recyclerView);
         recyclerViewComentarios.setLayoutManager(new LinearLayoutManager(this));
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        databaseReference.child("rama").addChildEventListener(new ChildEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (dataSnapshot.getValue() != null){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.getValue() != null){
+
+                    ComentariosDTO comentario = dataSnapshot.getValue(ComentariosDTO.class);
+                    Log.d("infoApp", comentario.getContenido());
+
+                    listComentarios.add(new ComentariosDTO(comentario.getContenido(),comentario.getFecha(),comentario.getNombre()));
+
+                    AdapterDatos adapter = new AdapterDatos(listComentarios);
+                    recyclerViewComentarios.setAdapter(adapter);
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
 
@@ -93,7 +83,4 @@ public class VerMasActivity extends AppCompatActivity {
         int requestCode = 1;
         startActivityForResult(intent, requestCode);
     }
-
-
-
 }
