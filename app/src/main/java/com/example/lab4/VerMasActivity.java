@@ -3,6 +3,10 @@ package com.example.lab4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class VerMasActivity extends AppCompatActivity {
 

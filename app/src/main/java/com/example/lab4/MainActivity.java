@@ -2,13 +2,22 @@ package com.example.lab4;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -24,6 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private static final int MY_REQUEST_CODE = 12;
     List<AuthUI.IdpConfig> providers;
     Button btn_sign_out;
@@ -32,6 +42,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String username = user.getDisplayName();
+        Log.e("username", ""+user.getDisplayName() );
+
+
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        TextView userName = findViewById(R.id.user_name);
+
+        userName.setText(username);
+        setSupportActionBar(toolbar);
+
+        ImageView addPhoto = findViewById(R.id.add_photo);
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,VerMasActivity.class);
+                startActivity(i);
+            }
+        });
 
         btn_sign_out = (Button)findViewById(R.id.button_CerrarSesion);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
