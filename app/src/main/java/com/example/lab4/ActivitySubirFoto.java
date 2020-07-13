@@ -104,10 +104,10 @@ public class ActivitySubirFoto extends AppCompatActivity {
 //                    .setCustomMetadata("fecha",fecha)
 //                    .setCustomMetadata("Descripción",descripcion).build();
             StorageMetadata metadata = new StorageMetadata.Builder()
-                    .setCustomMetadata("ID","12345789")
-                    .setCustomMetadata("Usuario","Brayan Dadick")
+                    .setCustomMetadata("id","12345789")
+                    .setCustomMetadata("usuario","Brayan Dadick")
                     .setCustomMetadata("fecha",fecha)
-                    .setCustomMetadata("Descripción",descripcion).build();
+                    .setCustomMetadata("descripcion",descripcion).build();
 
             imagenesRef.putFile(path,metadata)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
