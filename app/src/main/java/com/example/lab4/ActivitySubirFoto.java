@@ -39,7 +39,7 @@ public class ActivitySubirFoto extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
-        imageSubida = (ImageView) findViewById(R.id.imageView);
+        imageSubida = (ImageView) findViewById(R.id.imageViewFoto);
     }
 
     public void subirImagenStream(View view) {

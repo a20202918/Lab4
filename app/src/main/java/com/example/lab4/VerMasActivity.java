@@ -3,28 +3,24 @@ package com.example.lab4;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
 
 import com.example.lab4.entidades.AdapterDatos;
 import com.example.lab4.entidades.ComentariosDTO;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -33,14 +29,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicMarkableReference;
+
+import static com.example.lab4.R.id.username_toolbar;
 
 public class VerMasActivity extends AppCompatActivity {
 
@@ -72,6 +66,9 @@ public class VerMasActivity extends AppCompatActivity {
         String idfoto = "1";
 
         StorageReference imagenesRef = storageReference.child("imagenes/ydecian.jpeg");
+
+        ImageView imageViewFoto = findViewById(R.id.imageViewFoto);
+        Glide.with(this).load(imagenesRef).into(imageViewFoto);
 
         imagenesRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
             @Override
@@ -176,5 +173,5 @@ public class VerMasActivity extends AppCompatActivity {
         startActivityForResult(intent, requestCode);
     }
 
-    }
+}
 
