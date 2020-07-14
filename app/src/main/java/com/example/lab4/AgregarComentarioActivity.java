@@ -42,10 +42,6 @@ public class AgregarComentarioActivity extends AppCompatActivity {
 
         userName.setText(username);
         setSupportActionBar(toolbar);
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
     }
 
     public void btnPublicar(View view){
@@ -62,7 +58,6 @@ public class AgregarComentarioActivity extends AppCompatActivity {
         comentario.setNombre(user.getDisplayName());
 
         String idfoto = "1";
-
         databaseReference.child(idfoto).push().setValue(comentario).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

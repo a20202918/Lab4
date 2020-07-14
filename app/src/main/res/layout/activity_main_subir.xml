@@ -36,15 +36,15 @@
         app:srcCompat="@drawable/camara" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonSubir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="subirImagenStream"
         android:text="Subir Foto" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
+        android:id="@+id/progreso"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textStyle="bold" />
 </LinearLayout>
