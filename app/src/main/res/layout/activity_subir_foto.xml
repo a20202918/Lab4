@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".ActivitySubirFoto">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/txt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/textViewSubirFoto"
         android:layout_width="match_parent"

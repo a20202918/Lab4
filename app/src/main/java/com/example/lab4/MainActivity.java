@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,11 +68,18 @@ public class MainActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,VerMasActivity.class);
+                Intent i = new Intent(MainActivity.this,ActivitySubirFoto.class);
                 startActivity(i);
             }
         });
 
+        ListarFotosAdapter listarFotosAdapter = new ListarFotosAdapter(MainActivity.this);
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_inicio);
+        //recyclerView.setAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        /*
         btn_sign_out = (Button)findViewById(R.id.button_CerrarSesion);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +100,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+        */
 
         providers= Arrays.asList(
                 new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
         iniciarSesion();
+
+
+
 
     }
 
@@ -117,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(this, "" +user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                btn_sign_out.setEnabled(true);
+               // btn_sign_out.setEnabled(true);
             }else{
                 Toast.makeText(this, "" +response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
