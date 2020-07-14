@@ -6,43 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".AgregarComentarioActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/txt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
         android:text="Nuevo comentario"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextComentario"
         app:layout_constraintStart_toStartOf="@+id/editTextComentario"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <EditText
         android:id="@+id/editTextComentario"
         android:layout_width="308dp"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="38dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPublicar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <Button
         android:id="@+id/buttonPublicar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="47dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
         android:layout_marginBottom="559dp"
         android:onClick="btnPublicar"
         android:text="Publicar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextComentario" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextComentario"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

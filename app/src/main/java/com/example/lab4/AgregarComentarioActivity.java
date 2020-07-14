@@ -2,11 +2,13 @@ package com.example.lab4;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lab4.entidades.ComentariosDTO;
@@ -29,6 +31,17 @@ public class AgregarComentarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_comentario);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String username = user.getDisplayName();
+        Log.e("username", ""+user.getDisplayName() );
+
+
+        Toolbar toolbar = findViewById(R.id.username_toolbar);
+        TextView userName = findViewById(R.id.userName);
+
+        userName.setText(username);
+        setSupportActionBar(toolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
