@@ -51,14 +51,15 @@ public class VerMasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ver_mas);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String username = user.getDisplayName();
-        Log.d("username", ""+user.getDisplayName() );
+        String username = user.getDisplayName();
+        Log.e("username", ""+user.getDisplayName() );
+
 
         Toolbar toolbar = findViewById(R.id.username_toolbar);
         TextView userName = findViewById(R.id.userName);
 
-        //userName.setText(username);
-        //setSupportActionBar(toolbar);
+        userName.setText(username);
+        setSupportActionBar(toolbar);
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();

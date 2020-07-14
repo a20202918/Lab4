@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".VerMasActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/txt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/imageViewFoto"
         android:layout_width="258dp"
