@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,17 +57,23 @@ public class VerMasActivity extends AppCompatActivity {
         Log.d("username", ""+user.getDisplayName() );
 
         Toolbar toolbar = findViewById(R.id.username_toolbar);
-        TextView userName = findViewById(R.id.userName);
+        //TextView userName = findViewById(R.id.userName);
 
         //userName.setText(username);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        String idfoto = "1";
+        String idfoto = "1"; // a cambiar con el recycler view
+        String uid = currentUser.getUid();
+        String nombre = currentUser.getDisplayName();
 
-        StorageReference imagenesRef = storageReference.child("imagenes/ydecian.jpeg");
+        String direccion = uid+"/"+nombre+idfoto;
+
+        StorageReference imagenesRef = storageReference.child(direccion);
 
         ImageView imageViewFoto = findViewById(R.id.imageViewFoto);
         Glide.with(this).load(imagenesRef).into(imageViewFoto);
@@ -106,7 +114,6 @@ public class VerMasActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
 
         recyclerViewComentarios.setLayoutManager(layoutManager);
-
 
         databaseReference.child(idfoto).orderByChild("fecha").addChildEventListener(new ChildEventListener() {
             @Override
@@ -165,6 +172,12 @@ public class VerMasActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_4vermas,menu);
+        return true;
     }
 
     public void btnAgregarComentario(View view){

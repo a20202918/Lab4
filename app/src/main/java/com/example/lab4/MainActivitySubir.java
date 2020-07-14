@@ -3,7 +3,6 @@ package com.example.lab4;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,32 +27,24 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class ActivitySubirFoto extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-    ImageView imageSubida;
+public class MainActivitySubir extends AppCompatActivity {
+
+    ImageView imagen;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subir_foto);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String username = user.getDisplayName();
-        Log.e("username", ""+user.getDisplayName() );
-
-
-        Toolbar toolbar = findViewById(R.id.username_toolbar);
-        TextView userName = findViewById(R.id.userName);
-
-        userName.setText(username);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_main_subir);
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
-
-        imageSubida = (ImageView) findViewById(R.id.imageViewFoto);
+//
+        imagen = findViewById(R.id.imageView);
     }
 
     public void subirImagenStream(View view) {
@@ -100,47 +90,50 @@ public class ActivitySubirFoto extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         if (resultCode == RESULT_OK) {
+            int i=0;
             Uri path = data.getData();
-            imageSubida.setImageURI(path);
-            StorageReference imagenesRef = storageReference.child("imagenes/ydecian.jpeg");
+            imagen.setImageURI(path);
+            String uid = currentUser.getUid();
+            String displayName = currentUser.getDisplayName();
+            StorageReference imagenesRef = storageReference.child(uid+"/"+ displayName + i);
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String date = df.format(c.getTime());
 
             EditText descrip = findViewById(R.id.editTextDescrip);
             String descripcion = String.valueOf(descrip.getText());
-//            String uid = currentUser.getUid();
-//            String displayName = currentUser.getDisplayName();
-            String fecha = "12/07/2020";
-//            StorageMetadata metadata = new StorageMetadata.Builder()
-//                    .setCustomMetadata("ID",uid)
-//                    .setCustomMetadata("Usuario",displayName)
-//                    .setCustomMetadata("fecha",fecha)
-//                    .setCustomMetadata("Descripción",descripcion).build();
+
             StorageMetadata metadata = new StorageMetadata.Builder()
-                    .setCustomMetadata("id","12345789")
-                    .setCustomMetadata("usuario","Brayan Dadick")
-                    .setCustomMetadata("fecha",fecha)
-                    .setCustomMetadata("descripcion",descripcion).build();
+                    .setCustomMetadata("ID",uid)
+                    .setCustomMetadata("Usuario",displayName)
+                    .setCustomMetadata("fecha",date)
+                    .setCustomMetadata("Descripcion",descripcion).build();
+//            StorageMetadata metadata = new StorageMetadata.Builder()
+//                    .setCustomMetadata("ID","12345789")
+//                    .setCustomMetadata("Usuario","Brayan Dadick")
+//                    .setCustomMetadata("fecha",date)
+//                    .setCustomMetadata("Descripción",descripcion).build();
 
             imagenesRef.putFile(path,metadata)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Log.d("infoAapp", "subida exitosa");
-                            Toast.makeText(ActivitySubirFoto.this, "subida exitosa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivitySubir.this, "subida exitosa", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d("infoAapp", "error al subir");
-                    Toast.makeText(ActivitySubirFoto.this, "error al subir", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivitySubir.this, "error al subir", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-
-
 
 }
